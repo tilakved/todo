@@ -1,9 +1,10 @@
 .card {
   display: inline-block;
-  min-width: 500px;
+  max-width: 500px;
+  width: 100%;
 }
 .head {
-  min-height: 120px;
+  min-height: 100px;
   overflow: auto;
 }
 .bg-green {
@@ -13,4 +14,7 @@
 .bg-yellow {
   background-color: rgb(253, 230, 138);
   color: rgb(146, 64, 14);
+}
+.text-body {
+  @apply text-ellipsis overflow-hidden text-nowrap;
 }

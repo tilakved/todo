@@ -3,15 +3,19 @@ import star_empty from '../../assets/svgs/star-circle-svgrepo-com.svg';
 import star_fill from '../../assets/svgs/star-circle-svgrepo-com (1).svg';
 import delete_icon from '../../assets/svgs/delete-2-svgrepo-com.svg';
 import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
+import { useSelector } from 'react-redux';
+
 
 export function Cards() {
+    const user = useSelector(state => state.user);
+
     return (
         <div className='card'>
             <div className='text-right pr-5'><span className='bg-secondary p-1 rounded-t-md'>Main</span></div>
             <div className="bg-white rounded-md p-3">
                 <div className='head'>
-                    <div>Task 1</div>
-                    <div className='p-3'>This is description</div>
+                    <div className='font-bold'>Task 1</div>
+                    <div className='p-3 text-body'>{user.name}</div>
                 </div>
                 <div className='foot'>
                     <div className='p-3'>date</div>
