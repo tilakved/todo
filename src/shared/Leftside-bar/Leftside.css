@@ -1,0 +1,3 @@
+.selected-sort{
+    @apply bg-slate-300 border-r-[5px] border-primary rounded-r-sm
+}
