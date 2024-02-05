@@ -7,33 +7,38 @@ import { useSelector } from 'react-redux';
 
 
 export function Cards() {
-    const user = useSelector(state => state.user);
+    const allCards = useSelector(state => state.card);
 
     return (
-        <div className='card'>
-            <div className='text-right pr-5'><span className='bg-secondary p-1 rounded-t-md'>Main</span></div>
-            <div className="bg-white rounded-md p-3">
-                <div className='head'>
-                    <div className='font-bold'>Task 1</div>
-                    <div className='p-3 text-body'>{user.name}</div>
-                </div>
-                <div className='foot'>
-                    <div className='p-3'>date</div>
-                    <hr />
-                    <div className='p-3 flex justify-between'>
-                        <div className='flex gap-1'>
-                            <div className='cursor-pointer bg-green p-1 rounded-md'>completed</div>
-                            <div className='cursor-pointer bg-yellow p-1 rounded-md'>uncompleted</div>
+        <div className='flex flex-wrap gap-8'>
+            {allCards.map((card, index) => {
+                return <div className='card' key={index}>
+                    <div className='text-right pr-5'><span className='bg-secondary p-1 rounded-t-md'>Main</span></div>
+                    <div className="bg-white rounded-md p-3">
+                        <div className='head'>
+                            <div className='font-bold'>{card.name}</div>
+                            <div className='p-3 text-body'>{card.description}</div>
                         </div>
-                        <div className='flex gap-1 items-center'>
-                            <img className='cursor-pointer' src={star_empty} alt='' />
-                            <img className='cursor-pointer' src={star_fill} alt='' />
-                            <img className='cursor-pointer' src={delete_icon} alt='' />
-                            <img className='cursor-pointer' src={edit_icon} alt='' />
+                        <div className='foot'>
+                            <div className='p-3'>{card.date}</div>
+                            <hr />
+                            <div className='p-3 flex justify-between'>
+                                <div className='flex ap-1'>
+                                    {card.completed && <div className='cursor-pointer bg-green p-1 rounded-md'>completed</div>}
+                                    {!card.completed && <div className='cursor-pointer bg-yellow p-1 rounded-md'>uncompleted</div>}
+                                </div>
+                                <div className='flex gap-1 items-center'>
+                                    {!card.important && <img className='cursor-pointer' src={star_empty} alt='' />}
+                                    {card.important && <img className='cursor-pointer' src={star_fill} alt='' />}
+                                    <img className='cursor-pointer' src={delete_icon} alt='' />
+                                    <img className='cursor-pointer' src={edit_icon} alt='' />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            })
+            }
         </div>
     );
 }
