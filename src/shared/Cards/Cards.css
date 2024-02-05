@@ -1,0 +1,16 @@
+.card {
+  display: inline-block;
+  min-width: 500px;
+}
+.head {
+  min-height: 120px;
+  overflow: auto;
+}
+.bg-green {
+  background-color: rgb(167, 243, 208);
+  color: rgb(6, 95, 70);
+}
+.bg-yellow {
+  background-color: rgb(253, 230, 138);
+  color: rgb(146, 64, 14);
+}
