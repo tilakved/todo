@@ -16,7 +16,7 @@ export function LeftSide() {
           <div onClick={()=>{dispatch(updateSortBy('all'))}} className={allFilters.sortBy === 'all' ? `cursor-pointer py-2 px-5 selected-sort` : `cursor-pointer py-2 px-5`}>All Task</div>
           <div onClick={()=>{dispatch(updateSortBy('imp'))}} className={allFilters.sortBy === 'imp' ? `cursor-pointer py-2 px-5 selected-sort` : `cursor-pointer py-2 px-5`}>Important Task</div>
           <div onClick={()=>{dispatch(updateSortBy('completed'))}} className={allFilters.sortBy === 'completed' ? `cursor-pointer py-2 px-5 selected-sort` : `cursor-pointer py-2 px-5`}>Completed Task</div>
-          <div onClick={()=>{dispatch(updateSortBy('uncompelted'))}} className={allFilters.sortBy === 'uncompelted' ? `cursor-pointer py-2 px-5 selected-sort` : `cursor-pointer py-2 px-5`}>Uncompleted Task</div>
+          <div onClick={()=>{dispatch(updateSortBy('uncompleted'))}} className={allFilters.sortBy === 'uncompleted' ? `cursor-pointer py-2 px-5 selected-sort` : `cursor-pointer py-2 px-5`}>Uncompleted Task</div>
         </div>
         <div className='Directories flex flex-col gap-3'>
           <div className='mx-2'>Directories:</div>

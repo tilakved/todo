@@ -3,17 +3,19 @@ import { createSlice, current } from "@reduxjs/toolkit";
 const cardSlice = createSlice({
     name: "card",
     initialState: [{
+        id: 1,
         name: "Task-1",
         description: 'This is long description.',
-        date: '22/12/23',
+        date: '12/22/23',
         completed: true,
         important: true,
         deleted: false,
     },
     {
+        id: 2,
         name: "Task-2",
         description: 'This is long long description.',
-        date: '22/12/23',
+        date: '02/06/24',
         completed: false,
         important: false,
         deleted: false,
@@ -26,10 +28,12 @@ const cardSlice = createSlice({
             state[actions.payload.index].description = actions.payload.value
         },
         updateCompleted: (state, actions) => {
-            state[actions.payload.index].completed = actions.payload.status
+            const index = state.findIndex((res)=>actions.payload.id === res.id);
+            state[index].completed = actions.payload.status
         },
         updateImportant: (state, actions) => {
-            state[actions.payload.index].important = actions.payload.status
+            const index = state.findIndex((res)=>actions.payload.id === res.id);
+            state[index].important = actions.payload.status;
         },
         updatedeleted: (state, actions) => {
             state[actions.payload.index].deleted = actions.payload.status
