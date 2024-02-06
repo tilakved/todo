@@ -28,18 +28,20 @@ const cardSlice = createSlice({
             state[actions.payload.index].description = actions.payload.value
         },
         updateCompleted: (state, actions) => {
-            const index = state.findIndex((res)=>actions.payload.id === res.id);
+            const index = state.findIndex((res) => actions.payload.id === res.id);
             state[index].completed = actions.payload.status
         },
         updateImportant: (state, actions) => {
-            const index = state.findIndex((res)=>actions.payload.id === res.id);
+            const index = state.findIndex((res) => actions.payload.id === res.id);
             state[index].important = actions.payload.status;
         },
-        updatedeleted: (state, actions) => {
-            state[actions.payload.index].deleted = actions.payload.status
+        updateDeleted: (state, actions) => {
+            console.log(state,actions);
+            let index = state.findIndex((res) => actions.payload.id === res.id);
+            state[index].deleted = actions.payload.status;
         },
     },
 });
 
 export default cardSlice.reducer;
-export const { updateName, updateDescription, updateCompleted, updateImportant, updatedeleted } = cardSlice.actions;
+export const { updateName, updateDescription, updateCompleted, updateImportant, updateDeleted } = cardSlice.actions;

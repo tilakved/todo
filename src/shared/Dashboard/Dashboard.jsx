@@ -9,7 +9,7 @@ export function Dashboard() {
         <NavBar />
       </div>
       <div className='middle-rest'>
-        <Board/>
+        <Board />
       </div>
     </div>
   );

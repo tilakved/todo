@@ -5,30 +5,31 @@ import delete_icon from '../../assets/svgs/delete-2-svgrepo-com.svg';
 import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCompleted, updateImportant } from '../../redux/slicer/cardSlice';
+import { updateDeletePopupId } from '../../redux/slicer/filterSlice';
 
 
 export function Cards() {
     const allCards = useSelector(state => state.card);
     const allFilters = useSelector(state => state.filter);
+    const dispatch = useDispatch();
 
+    console.log(allCards);
     function f() {
         let arr = []
         if (allFilters.sortBy === 'imp') {
-            arr = allCards.filter((res) => res.important)
+            arr = allCards.filter((res) => !res.deleted && res.important)
         } else if (allFilters.sortBy === 'today') {
-            arr = allCards.filter((res) => new Date(res.date).toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) === new Date().toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }))
+            arr = allCards.filter((res) => !res.deleted && new Date(res.date).toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) === new Date().toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }))
         } else if (allFilters.sortBy === 'completed') {
-            arr = allCards.filter((res) => res.completed)
+            arr = allCards.filter((res) => !res.deleted && res.completed)
         } else if (allFilters.sortBy === 'uncompleted') {
-            arr = allCards.filter((res) => !res.completed)
+            arr = allCards.filter((res) => !res.deleted && !res.completed)
         } else {
             arr = allCards
         }
-        return arr
+        return arr.filter((res) => !res.deleted)
     }
 
-    const dispatch = useDispatch()
-    console.log(allFilters.sortBy);
     return (
         <div className='flex flex-wrap gap-8'>
             {f().map((card, index) => {
@@ -52,7 +53,9 @@ export function Cards() {
                                         {!card.important && <img className='cursor-pointer' src={star_empty} alt='' />}
                                         {card.important && <img className='cursor-pointer' src={star_fill} alt='' />}
                                     </span>
-                                    <img className='cursor-pointer' src={delete_icon} alt='' />
+                                    <span onClick={() => { dispatch(updateDeletePopupId(card.id)) }}>
+                                        <img className='cursor-pointer' src={delete_icon} alt='' />
+                                    </span>
                                     <img className='cursor-pointer' src={edit_icon} alt='' />
                                 </div>
                             </div>
