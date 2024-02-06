@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateDeletePopupId } from '../../redux/slicer/filterSlice';
 import { updateDeleted } from '../../redux/slicer/cardSlice';
-
+import './Delete-modal.css';
 export function DeletePopup() {
   const allFilters = useSelector(state => state.filter);
   const dispatch = useDispatch();

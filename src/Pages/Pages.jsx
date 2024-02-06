@@ -1,5 +1,6 @@
 import { Dashboard } from '../shared/Dashboard/Dashboard';
 import { DeletePopup } from '../shared/Delete-modal/Delete-modal';
+import { FormPopup } from '../shared/Form-Popup/Form-popup';
 import { LeftSide } from '../shared/Leftside-bar/Leftside';
 import './Pages.css';
 import { useSelector } from 'react-redux';
@@ -18,6 +19,9 @@ export function Pages() {
       </div>
       {allFilters.deletePopupId &&
         <DeletePopup />
+      }
+      {allFilters.addDirectoriesPopup &&
+        <FormPopup />
       }
     </div>
   );

@@ -13,7 +13,6 @@ export function Cards() {
     const allFilters = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
-    console.log(allCards);
     function f() {
         let arr = []
         if (allFilters.sortBy === 'imp') {
