@@ -5,7 +5,6 @@ import delete_icon from '../../assets/svgs/delete-2-svgrepo-com.svg';
 import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCompleted, updateImportant } from '../../redux/slicer/cardSlice';
-import { useEffect } from 'react';
 
 
 export function Cards() {
