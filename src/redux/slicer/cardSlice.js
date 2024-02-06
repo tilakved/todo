@@ -17,7 +17,7 @@ const cardSlice = createSlice({
         completed: false,
         important: false,
         deleted: false,
-    },],
+    }],
     reducers: {
         updateName: (state, { payload }) => {
             return { ...state, name: payload };
