@@ -6,7 +6,6 @@ export function LeftSide() {
   const allFilters = useSelector(state => state.filter);
   const dispatch = useDispatch()
 
-  console.log(allFilters);
   return (
     <div className="leftside">
       <div className='p-10 bold text-3xl text-center'>TO-DO LIST</div>

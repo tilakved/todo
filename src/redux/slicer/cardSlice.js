@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const cardSlice = createSlice({
     name: "card",
     initialState: [{
         name: "Task-1",
         description: 'This is long description.',
-        date:'22/12/23',
+        date: '22/12/23',
         completed: true,
         important: true,
         deleted: false,
@@ -13,26 +13,26 @@ const cardSlice = createSlice({
     {
         name: "Task-2",
         description: 'This is long long description.',
-        date:'22/12/23',
+        date: '22/12/23',
         completed: false,
         important: false,
         deleted: false,
     }],
     reducers: {
-        updateName: (state, { payload }) => {
-            return { ...state, name: payload };
+        updateName: (state, actions) => {
+            state[actions.payload.index].name = actions.payload.value
         },
-        updateDescription: (state, { payload }) => {
-            return { ...state, description: payload };
+        updateDescription: (state, actions) => {
+            state[actions.payload.index].description = actions.payload.value
         },
-        updateCompleted: (state, { payload }) => {
-            return { ...state, completed: payload };
+        updateCompleted: (state, actions) => {
+            state[actions.payload.index].completed = actions.payload.status
         },
-        updateImportant: (state, { payload }) => {
-            return { ...state, important: payload };
+        updateImportant: (state, actions) => {
+            state[actions.payload.index].important = actions.payload.status
         },
-        updatedeleted: (state, { payload }) => {
-            return { ...state, deleted: payload };
+        updatedeleted: (state, actions) => {
+            state[actions.payload.index].deleted = actions.payload.status
         },
     },
 });

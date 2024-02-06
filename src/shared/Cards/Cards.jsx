@@ -3,11 +3,13 @@ import star_empty from '../../assets/svgs/star-circle-svgrepo-com.svg';
 import star_fill from '../../assets/svgs/star-circle-svgrepo-com (1).svg';
 import delete_icon from '../../assets/svgs/delete-2-svgrepo-com.svg';
 import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateCompleted, updateImportant } from '../../redux/slicer/cardSlice';
 
 
 export function Cards() {
     const allCards = useSelector(state => state.card);
+    const dispatch = useDispatch()
 
     return (
         <div className='flex flex-wrap gap-8'>
@@ -23,13 +25,15 @@ export function Cards() {
                             <div className='p-3'>{card.date}</div>
                             <hr />
                             <div className='p-3 flex justify-between'>
-                                <div className='flex ap-1'>
+                                <div className='flex gap-1' onClick={() => { dispatch(updateCompleted({ status: !card.completed, index })) }}>
                                     {card.completed && <div className='cursor-pointer bg-green p-1 rounded-md'>completed</div>}
                                     {!card.completed && <div className='cursor-pointer bg-yellow p-1 rounded-md'>uncompleted</div>}
                                 </div>
                                 <div className='flex gap-1 items-center'>
-                                    {!card.important && <img className='cursor-pointer' src={star_empty} alt='' />}
-                                    {card.important && <img className='cursor-pointer' src={star_fill} alt='' />}
+                                    <span onClick={() => { dispatch(updateImportant({ status: !card.important, index})) }}>
+                                        {!card.important && <img className='cursor-pointer' src={star_empty} alt='' />}
+                                        {card.important && <img className='cursor-pointer' src={star_fill} alt='' />}
+                                    </span>
                                     <img className='cursor-pointer' src={delete_icon} alt='' />
                                     <img className='cursor-pointer' src={edit_icon} alt='' />
                                 </div>
