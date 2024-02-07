@@ -1,12 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAddDirectoriesPopup } from '../../redux/slicer/filterSlice';
+import { updateFullDirectory } from '../../redux/slicer/directoriesSlice';
+import { useState } from 'react';
+
 export function FormPopup() {
     const allFilters = useSelector(state => state.filter);
     const dispatch = useDispatch();
+    const [directoryName, setDirectoryName] = useState('');
 
     function AddDirectory() {
-
-
+        if (allFilters.addDirectoriesPopup) {
+            dispatch(updateFullDirectory(directoryName))
+            setDirectoryName('')
+            dispatch(updateAddDirectoriesPopup(false))
+        }   
     }
 
     return (
@@ -20,7 +27,7 @@ export function FormPopup() {
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                     <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Directory</h3>
                                     <div className="mt-2 flex gap-1 items-center">
-                                        <span>Name: </span><input type='text' placeholder='Directory name' className='border rounded-md p-1' />
+                                        <span>Name: </span><input type='text' placeholder='Directory name' className='border rounded-md p-1' value={directoryName} onChange={(e) => { setDirectoryName(e.target.value) }} />
                                     </div>
                                 </div>
                             </div>
