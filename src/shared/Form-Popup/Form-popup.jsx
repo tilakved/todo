@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAddDirectoriesPopup, updateAddTaskPopup, updateEditPopupId } from '../../redux/slicer/filterSlice';
 import { updateFullDirectory } from '../../redux/slicer/directoriesSlice';
-import { updateFullCard } from '../../redux/slicer/cardSlice';
+import { updateFullCard, addFullCard } from '../../redux/slicer/cardSlice';
 import { useEffect, useState } from 'react';
 
 export function FormPopup() {
@@ -26,7 +26,7 @@ export function FormPopup() {
         if (index) {
             setTask(index)
         }
-    }, [allFilters.editPopupId,allCards])
+    }, [allFilters.editPopupId, allCards])
 
     function AddDirectory() {
         if (allFilters.addDirectoriesPopup) {
@@ -36,21 +36,23 @@ export function FormPopup() {
         }
     }
     function AddTask() {
-        if (allFilters.addTaskPopup) {
-            dispatch(updateFullCard(task))
-            setTask({
-                id: Date.now(),
-                directory: allDirectories[0],
-                name: '',
-                description: '',
-                date: '',
-                completed: false,
-                important: false,
-                deleted: false,
-            })
-            dispatch(updateAddTaskPopup(false));
-            dispatch(updateEditPopupId(null))
+        if (allFilters.addTaskPopup && allFilters.editPopupId) {
+            dispatch(updateFullCard({ value: task, id: allFilters.editPopupId }))
+        } else {
+            dispatch(addFullCard(task))
         }
+        setTask({
+            id: Date.now(),
+            directory: allDirectories[0],
+            name: '',
+            description: '',
+            date: '',
+            completed: false,
+            important: false,
+            deleted: false,
+        })
+        dispatch(updateAddTaskPopup(false));
+        dispatch(updateEditPopupId(null))
     }
 
     return (

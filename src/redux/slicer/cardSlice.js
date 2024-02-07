@@ -51,11 +51,16 @@ const cardSlice = createSlice({
             let index = state.findIndex((res) => actions.payload.id === res.id);
             state[index].deleted = actions.payload.status;
         },
-        updateFullCard: (state, actions)=>{
+        addFullCard: (state, actions)=>{
            state.push(actions.payload)
+        },
+        updateFullCard: (state, actions)=>{
+            console.log(actions);
+            let index = state.findIndex((res) => actions.payload.id === res.id);
+            state.splice(index,1,actions.payload.value)
         }
     },
 });
 
 export default cardSlice.reducer;
-export const { updateName, updateDescription, updateCompleted, updateImportant, updateDeleted, updateFullCard } = cardSlice.actions;
+export const { updateName, updateDescription, updateCompleted, updateImportant, updateDeleted, addFullCard, updateFullCard } = cardSlice.actions;
