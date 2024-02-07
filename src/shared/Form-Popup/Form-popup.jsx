@@ -1,16 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAddDirectoriesPopup, updateAddTaskPopup } from '../../redux/slicer/filterSlice';
 import { updateFullDirectory } from '../../redux/slicer/directoriesSlice';
+import { updateFullCard } from '../../redux/slicer/cardSlice';
 import { useState } from 'react';
 
 export function FormPopup() {
     const allFilters = useSelector(state => state.filter);
+    const allDirectories = useSelector(state => state.directories);
+    const allCards = useSelector(state => state.card);
     const dispatch = useDispatch();
     const [directoryName, setDirectoryName] = useState('');
     const [task, setTask] = useState({
-        name: '', 
-        description: '', 
-        date: '', 
+        id:allCards.length + 1,
+        directory: allDirectories[0],
+        name: '',
+        description: '',
+        date: '',
         completed: false,
         important: false,
         deleted: false,
@@ -25,9 +30,19 @@ export function FormPopup() {
     }
     function AddTask() {
         if (allFilters.addTaskPopup) {
-            const obj = {}
-
-        }
+            dispatch(updateFullCard(task))
+            setTask({
+                id:allCards.length + 1,
+                directory: allDirectories[0],
+                name: '',
+                description: '',
+                date: '',
+                completed: false,
+                important: false,
+                deleted: false,
+            })
+            dispatch(updateAddTaskPopup(false))
+        }   
     }
 
     return (
@@ -64,11 +79,36 @@ export function FormPopup() {
                         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                             <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <div className="sm:flex sm:items-start">
+                                    <div className="">
                                         <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                             <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Task</h3>
-                                            <div className="mt-2 flex gap-1 items-center">
-                                            <span>Name: </span><input type='text' placeholder='Task name' className='border rounded-md p-1' value={task.name} onChange={(e) => { setTask.name(e.target.value) }} />
+                                            <div className="mt-2 flex gap-3 flex-col">
+                                                <div className='flex items-center gap-2'>
+                                                    <span>Directory: </span>
+                                                    <select className='p-2 rounded-md w-full' name="directory" id="directory" defaultValue={task.directory} onChange={(e) => { setTask({ ...task, directory: e.target.value }) }}>
+                                                        {allDirectories.map((res, index) => {
+                                                            return <option key={index} value={res}>{res}</option>
+                                                        })}
+                                                    </select>
+                                                </div>
+                                                <div className='flex items-center gap-2'>
+                                                    <span>Name: </span><input type='text' placeholder='Task name' className='w-full border rounded-md p-1' value={task.name} onChange={(e) => { setTask({ ...task, name: e.target.value }) }} />
+                                                </div>
+                                                <div className='flex items-center gap-2'>
+                                                    <span>Description: </span><textarea cols='4' placeholder='Task name' className='border rounded-md p-1 w-full' value={task.description} onChange={(e) => { setTask({ ...task, description: e.target.value }) }} />
+                                                </div>
+                                                <div className='flex items-center gap-2'>
+                                                    <span>Date: </span><input type='date' value={task.date} onChange={(e) => { setTask({ ...task, date: e.target.value }) }} />
+                                                </div>
+                                                <div className='flex items-center gap-2'>
+                                                    <span>Important: </span>
+                                                    <span className='flex gap-1'>
+                                                        <input type="radio" id="Important" name="is_important" value='true' checked={task.important} onChange={(e) => { setTask({ ...task, important: true }) }} />
+                                                        <label htmlFor="Important">Important</label>
+                                                        <input type="radio" id="NotImportant" name="is_important" value='false' checked={!task.important} onChange={(e) => { setTask({ ...task, important: false }) }} />
+                                                        <label htmlFor="NotImportant">Not Important</label>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

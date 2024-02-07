@@ -34,7 +34,7 @@ export function Cards() {
         <div className='flex flex-wrap gap-8'>
             {f().map((card, index) => {
                 return <div className='card' key={index}>
-                    <div className='text-right pr-5'><span className='bg-secondary p-1 rounded-t-md'>Main</span></div>
+                    <div className='text-right pr-5'><span className='bg-secondary p-1 rounded-t-md'>{card.directory}</span></div>
                     <div className="bg-white rounded-md p-3">
                         <div className='head'>
                             <div className='font-bold'>{card.name}</div>

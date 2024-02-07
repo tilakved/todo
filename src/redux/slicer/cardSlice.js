@@ -4,27 +4,30 @@ const cardSlice = createSlice({
     name: "card",
     initialState: [{
         id: 1,
+        directory: 'Main',
         name: "Task-1",
         description: 'This is long description.',
-        date: '12/22/23',
+        date: '2023-12-20',
         completed: true,
         important: true,
         deleted: false,
     },
     {
         id: 2,
+        directory: 'Main',
         name: "Task-2",
         description: 'This is long long description.',
-        date: '02/06/24',
+        date: '2024-02-06',
         completed: false,
         important: false,
         deleted: false,
     },
     {
         id: 2,
+        directory: 'Main',
         name: "Task-3",
         description: 'This is long long description.',
-        date: '02/07/24',
+        date: '2024-02-07',
         completed: false,
         important: false,
         deleted: false,
@@ -45,12 +48,14 @@ const cardSlice = createSlice({
             state[index].important = actions.payload.status;
         },
         updateDeleted: (state, actions) => {
-            console.log(state,actions);
             let index = state.findIndex((res) => actions.payload.id === res.id);
             state[index].deleted = actions.payload.status;
         },
+        updateFullCard: (state, actions)=>{
+           state.push(actions.payload)
+        }
     },
 });
 
 export default cardSlice.reducer;
-export const { updateName, updateDescription, updateCompleted, updateImportant, updateDeleted } = cardSlice.actions;
+export const { updateName, updateDescription, updateCompleted, updateImportant, updateDeleted, updateFullCard } = cardSlice.actions;
