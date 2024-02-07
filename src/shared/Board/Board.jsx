@@ -7,7 +7,7 @@ import delete_icon from '../../assets/svgs/delete-2-svgrepo-com.svg';
 import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCompleted, updateImportant } from '../../redux/slicer/cardSlice';
-import { updateDeletePopupId } from '../../redux/slicer/filterSlice';
+import { updateDeletePopupId, updateEditPopupId, updateAddTaskPopup } from '../../redux/slicer/filterSlice';
 import { dateFormat } from '../../helper/common';
 
 
@@ -31,7 +31,6 @@ export function Board() {
         }
         return arr.filter((res) => !res.deleted)
     }
-    console.log(allCards);
     return (
         <div className="p-5 flex flex-col gap-5">
             <div className='flex justify-between items-center'>
@@ -70,7 +69,9 @@ export function Board() {
                                             <span onClick={() => { dispatch(updateDeletePopupId(card.id)) }}>
                                                 <img className='cursor-pointer' src={delete_icon} alt='' />
                                             </span>
-                                            <img className='cursor-pointer' src={edit_icon} alt='' />
+                                            <span onClick={() => { dispatch(updateEditPopupId(card.id)); dispatch(updateAddTaskPopup(true)) }}>
+                                                <img className='cursor-pointer' src={edit_icon} alt='' />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

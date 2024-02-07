@@ -24,7 +24,7 @@ const cardSlice = createSlice({
     },
     {
         id: 3,
-        directory: 'Main',
+        directory: 'Secondary',
         name: "Task-3",
         description: 'This is long long description.',
         date: '2024-02-07',

@@ -2,13 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const filterSlice = createSlice({
     name: "filter",
-    initialState: { sortBy: 'all', deletePopupId: null, addDirectoriesPopup: false, addTaskPopup: false },
+    initialState: { sortBy: 'all', deletePopupId: null, editPopupId: null, addDirectoriesPopup: false, addTaskPopup: false },
     reducers: {
         updateSortBy: (state, actions) => {
             return { ...state, sortBy: actions.payload };
         },
         updateDeletePopupId: (state, actions) => {
             return { ...state, deletePopupId: actions.payload };
+        },
+        updateEditPopupId: (state, actions) => {
+            return { ...state, editPopupId: actions.payload };
         },
         updateAddDirectoriesPopup: (state, actions) => {
             return { ...state, addDirectoriesPopup: actions.payload };
@@ -20,4 +23,4 @@ const filterSlice = createSlice({
 });
 
 export default filterSlice.reducer;
-export const { updateDeletePopupId, updateSortBy, updateAddDirectoriesPopup, updateAddTaskPopup } = filterSlice.actions;
+export const { updateDeletePopupId, updateSortBy, updateAddDirectoriesPopup, updateAddTaskPopup, updateEditPopupId } = filterSlice.actions;

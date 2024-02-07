@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateAddDirectoriesPopup, updateAddTaskPopup } from '../../redux/slicer/filterSlice';
+import { updateAddDirectoriesPopup, updateAddTaskPopup, updateEditPopupId } from '../../redux/slicer/filterSlice';
 import { updateFullDirectory } from '../../redux/slicer/directoriesSlice';
 import { updateFullCard } from '../../redux/slicer/cardSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function FormPopup() {
     const allFilters = useSelector(state => state.filter);
@@ -11,7 +11,7 @@ export function FormPopup() {
     const dispatch = useDispatch();
     const [directoryName, setDirectoryName] = useState('');
     const [task, setTask] = useState({
-        id:allCards.length + 1,
+        id: Date.now(),
         directory: allDirectories[0],
         name: '',
         description: '',
@@ -20,6 +20,13 @@ export function FormPopup() {
         important: false,
         deleted: false,
     });
+    useEffect(() => {
+
+        let index = allCards.find((res) => res.id === allFilters.editPopupId)
+        if (index) {
+            setTask(index)
+        }
+    }, [allFilters.editPopupId,allCards])
 
     function AddDirectory() {
         if (allFilters.addDirectoriesPopup) {
@@ -32,7 +39,7 @@ export function FormPopup() {
         if (allFilters.addTaskPopup) {
             dispatch(updateFullCard(task))
             setTask({
-                id:allCards.length + 1,
+                id: Date.now(),
                 directory: allDirectories[0],
                 name: '',
                 description: '',
@@ -41,8 +48,9 @@ export function FormPopup() {
                 important: false,
                 deleted: false,
             })
-            dispatch(updateAddTaskPopup(false))
-        }   
+            dispatch(updateAddTaskPopup(false));
+            dispatch(updateEditPopupId(null))
+        }
     }
 
     return (
@@ -87,7 +95,7 @@ export function FormPopup() {
                                                     <span>Directory: </span>
                                                     <select className='p-2 rounded-md w-full' name="directory" id="directory" defaultValue={task.directory} onChange={(e) => { setTask({ ...task, directory: e.target.value }) }}>
                                                         {allDirectories.map((res, index) => {
-                                                            return <option key={index} value={res}>{res}</option>
+                                                            return <option key={index} selected={res === task.directory} value={res}>{res}</option>
                                                         })}
                                                     </select>
                                                 </div>
@@ -115,7 +123,7 @@ export function FormPopup() {
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button type="button" className="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary sm:ml-3 sm:w-auto" onClick={() => { AddTask() }}>Save</button>
-                                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => { dispatch(updateAddTaskPopup(false)) }}>Cancel</button>
+                                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => { dispatch(updateAddTaskPopup(false)); dispatch(updateEditPopupId(null)) }}>Cancel</button>
                                 </div>
                             </div>
                         </div>
