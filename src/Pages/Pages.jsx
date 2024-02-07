@@ -20,7 +20,7 @@ export function Pages() {
       {allFilters.deletePopupId &&
         <DeletePopup />
       }
-      {allFilters.addDirectoriesPopup &&
+      {(allFilters.addDirectoriesPopup || allFilters.addTaskPopup) &&
         <FormPopup />
       }
     </div>

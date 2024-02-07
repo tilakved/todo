@@ -19,6 +19,15 @@ const cardSlice = createSlice({
         completed: false,
         important: false,
         deleted: false,
+    },
+    {
+        id: 2,
+        name: "Task-3",
+        description: 'This is long long description.',
+        date: '02/07/24',
+        completed: false,
+        important: false,
+        deleted: false,
     }],
     reducers: {
         updateName: (state, actions) => {

@@ -6,6 +6,7 @@ import edit_icon from '../../assets/svgs/edit-clipboard-svgrepo-com.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCompleted, updateImportant } from '../../redux/slicer/cardSlice';
 import { updateDeletePopupId } from '../../redux/slicer/filterSlice';
+import { dateFormat } from '../../helper/common';
 
 
 export function Cards() {
@@ -18,7 +19,7 @@ export function Cards() {
         if (allFilters.sortBy === 'imp') {
             arr = allCards.filter((res) => !res.deleted && res.important)
         } else if (allFilters.sortBy === 'today') {
-            arr = allCards.filter((res) => !res.deleted && new Date(res.date).toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) === new Date().toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }))
+            arr = allCards.filter((res) => !res.deleted && dateFormat(res.date) === dateFormat(new Date()))
         } else if (allFilters.sortBy === 'completed') {
             arr = allCards.filter((res) => !res.deleted && res.completed)
         } else if (allFilters.sortBy === 'uncompleted') {
@@ -40,7 +41,7 @@ export function Cards() {
                             <div className='p-3 text-body'>{card.description}</div>
                         </div>
                         <div className='foot'>
-                            <div className='p-3'>{new Date(card.date).toLocaleString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                            <div className='p-3'>{dateFormat(card.date)}</div>
                             <hr />
                             <div className='p-3 flex justify-between'>
                                 <div className='flex gap-1' onClick={() => { dispatch(updateCompleted({ status: !card.completed, id: card.id })) }}>
