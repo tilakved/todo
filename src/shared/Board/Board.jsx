@@ -17,7 +17,7 @@ export function Board() {
     const allFilters = useSelector(state => state.filter);
     const dispatch = useDispatch();
     const [viewMode, setviewMode] = useState('tiles');
-
+    console.log(allFilters.searchValue);
     function f() {
         let arr = []
         if (allFilters.sortBy === 'imp') {
@@ -31,7 +31,7 @@ export function Board() {
         } else {
             arr = allCards
         }
-        return arr.filter((res) => !res.deleted)
+        return arr.filter((res) => !res.deleted && (((res.name).toLowerCase()).includes((allFilters.searchValue).toLowerCase()) || ((res.description).toLowerCase()).includes((allFilters.searchValue).toLowerCase()) ))
     }
     return (
         <div className="p-5 flex flex-col gap-5">
