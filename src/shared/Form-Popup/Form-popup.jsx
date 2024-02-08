@@ -64,11 +64,11 @@ export function FormPopup() {
                         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                             <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <div className="sm:flex sm:items-start">
+                                    <div className="">
                                         <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                             <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Directory</h3>
                                             <div className="mt-2 flex gap-1 items-center">
-                                                <span>Name: </span><input type='text' placeholder='Directory name' className='border rounded-md p-1' value={directoryName} onChange={(e) => { setDirectoryName(e.target.value) }} />
+                                                <span>Name: </span><input type='text' placeholder='Directory name' className='border rounded-md p-1 w-full' value={directoryName} onChange={(e) => { setDirectoryName(e.target.value) }} />
                                             </div>
                                         </div>
                                     </div>
